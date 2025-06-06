@@ -1,0 +1,55 @@
+import { useState } from "react";
+import HHImage from "./Hhimage";
+const Navbar = () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="w-full  h-16 flex items-center justify-between ">
+      {/* LOGO */}
+      <div className=" flex items-center gap-4 text-2xl font-bold">
+        <HHImage src="/logo.png" alt="logo 图片" width={32} height={32} />
+        <span>你好啊李银河</span>
+      </div>
+      {/* MOBILR MENU */}
+      <div className="md:hidden">
+        {/* mobile button */}
+        <div
+          className="cursor-pointer text-2xl "
+          //   onClick={() => setOpen(!open)}
+          onClick={() => setOpen((prev) => !prev)}
+        >
+          {open ? "X" : "☰"}
+        </div>
+        {/* mobile link list */}
+        <div
+          className={`w-full h-screen flex flex-col items-center justify-center gap-8 font-medium text-lg  absolute top-16 transition-all ease-in-out  ${
+            open ? "-right-0" : "-right-[100%]"
+          }`}
+        >
+          <a href="/">主页</a>
+          <a href="/">热门</a>
+          <a href="/">趋势</a>
+          <a href="/">关于</a>
+          <a href="">
+            <button className="py-2 px-4 rounded-3xl bg-blue-800 text-white">
+              登录 &#x1F600;
+            </button>
+          </a>
+        </div>
+      </div>
+      {/* DESKTOP MENU */}
+      <div className="hidden md:flex items-center gap-8 xl:gap-12 font-medium">
+        <a href="/">主页</a>
+        <a href="/">热门</a>
+        <a href="/">趋势</a>
+        <a href="/">关于</a>
+        <a href="">
+          <button className="py-2 px-4 rounded-3xl bg-blue-800 text-white">
+            登录 &#x1F600;
+          </button>
+        </a>
+      </div>
+    </div>
+  );
+};
+
+export default Navbar;
