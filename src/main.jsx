@@ -40,7 +40,7 @@ const router = createBrowserRouter([
         element: <Register />,
       },
       {
-        path: "/:slug",
+        path: "/:sl ug",
         element: <SignlePostPage />,
       },
 

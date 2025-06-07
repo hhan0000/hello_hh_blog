@@ -1,5 +1,5 @@
 import { useState } from "react";
-import HHImage from "./Hhimage";
+import HHImage from "./HHImage";
 import { Link } from "react-router-dom";
 import {
   SignedIn,

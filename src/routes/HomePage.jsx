@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import MainCategories from "../components/MainCategories";
+import FeaturedPosts from "../components/FeaturedPosts";
 function HomePage() {
   return (
     <div className="mt-4 flex-col gap-4">
@@ -58,6 +60,10 @@ function HomePage() {
           </button>
         </Link>
       </div>
+      {/* 分类 */}
+      <MainCategories />
+      {/* 文章 */}
+      <FeaturedPosts />
     </div>
   );
 }
