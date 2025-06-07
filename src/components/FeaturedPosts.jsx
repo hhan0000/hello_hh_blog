@@ -7,7 +7,11 @@ const FeaturedPosts = () => {
       {/* 第一受欢迎 */}
       <div className="w-full lg:w-1/2 flex flex-col gap-4">
         {/* 图片 */}
-        <HHImage src="/featured1.jpeg" className="rounded-3xl object-cover" />
+        <HHImage
+          src="/featured1.jpeg"
+          className="rounded-3xl object-cover"
+          width="895"
+        />
         {/* 内容 */}
         <div className="flex items-center gap-4">
           <h1 className="font-semibold lg:text-lg">01.</h1>
@@ -27,10 +31,13 @@ const FeaturedPosts = () => {
         {/* 第二 */}
         <div className="flex justify-between gap-4 lg:h-1/3 ">
           {/* 图片 */}
-          <HHImage
-            src="/featured2.jpeg"
-            className="rounded-3xl object-cover w-1/3 aspect-video"
-          ></HHImage>
+          <div className="w-1/3 aspect-video">
+            <HHImage
+              width="298"
+              src="/featured2.jpeg"
+              className="rounded-3xl object-cover h-full w-full"
+            ></HHImage>
+          </div>
 
           <div className="w-2/3">
             {/* 详细信息 */}
@@ -51,10 +58,13 @@ const FeaturedPosts = () => {
         {/* 3 */}
         <div className="flex justify-between gap-4 lg:h-1/3 ">
           {/* 图片 */}
-          <HHImage
-            src="/featured3.jpeg"
-            className="rounded-3xl object-cover w-1/3 aspect-video"
-          ></HHImage>
+          <div className="w-1/3 aspect-video">
+            <HHImage
+              width="298"
+              src="/featured3.jpeg"
+              className="rounded-3xl object-cover h-full w-full"
+            ></HHImage>
+          </div>
 
           <div className="w-2/3">
             {/* 详细信息 */}
@@ -75,10 +85,13 @@ const FeaturedPosts = () => {
         {/* 4 */}
         <div className="flex justify-between gap-4 lg:h-1/3 ">
           {/* 图片 */}
-          <HHImage
-            src="/featured4.jpeg"
-            className="rounded-3xl object-cover w-1/3 aspect-video"
-          ></HHImage>
+          <div className="w-1/3 aspect-video">
+            <HHImage
+              width="298"
+              src="/featured4.jpeg"
+              className="rounded-3xl object-cover h-full w-full"
+            ></HHImage>
+          </div>
 
           <div className="w-2/3">
             {/* 详细信息 */}

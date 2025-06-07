@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import MainCategories from "../components/MainCategories";
 import FeaturedPosts from "../components/FeaturedPosts";
+import PostList from "../components/Postlist";
+// import PostList from "../componPostList";ents/
 function HomePage() {
   return (
     <div className="mt-4 flex-col gap-4">
@@ -62,8 +64,13 @@ function HomePage() {
       </div>
       {/* 分类 */}
       <MainCategories />
-      {/* 文章 */}
+      {/* 排行前几的文章*/}
       <FeaturedPosts />
+      {/* 文章列表*/}
+      <div className="">
+        <h1 className="my-8 text-2xl text-gray-600">最近的博客</h1>
+        <PostList />
+      </div>
     </div>
   );
 }

@@ -39,14 +39,14 @@ const router = createBrowserRouter([
         path: "/register",
         element: <Register />,
       },
-      {
-        path: "/:sl ug",
-        element: <SignlePostPage />,
-      },
 
       {
         path: "/write",
         element: <WritePage />,
+      },
+      {
+        path: "/:slug",
+        element: <SignlePostPage />,
       },
     ],
   },

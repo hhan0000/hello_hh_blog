@@ -12,6 +12,12 @@ const HHImage = ({ src, className, width, height, alt }) => {
       lqip={{ active: true, quality: 40 }}
       width={width}
       height={height}
+      transformation={[
+        {
+          width: width,
+          height: height,
+        },
+      ]}
     />
   );
 };
