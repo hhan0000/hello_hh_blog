@@ -10,8 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@clerk/clerk-react": "^5.31.9",
+    "@clerk/localizations": "^3.16.4",
     "@imagekit/javascript": "^5.0.0",
     "@imagekit/react": "^5.0.1",
+    "antd": "^5.25.4",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-router-dom": "^7.6.2"
