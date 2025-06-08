@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import MainCategories from "../components/MainCategories";
 import FeaturedPosts from "../components/FeaturedPosts";
-import PostList from "../components/Postlist";
+import PostList from "../components/PostList";
 // import PostList from "../componPostList";ents/
 function HomePage() {
   return (
