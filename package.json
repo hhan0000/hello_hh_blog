@@ -17,6 +17,7 @@
     "antd": "^5.25.4",
     "react": "19.0.0",
     "react-dom": "19.0.0",
+    "react-quill-new": "^3.4.6",
     "react-router-dom": "^7.6.2"
   },
   "devDependencies": {

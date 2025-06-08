@@ -6,7 +6,6 @@ import Comments from "../components/Comments";
 const SignlePostPage = () => {
   return (
     <div className="flex flex-col gap-8">
-      {/* 详情 */}
       <div className="flex gap-8">
         <div className="lg:w-3/5 flex flex-col gap-8">
           <h1 className="text-xl md:text-3xl 2xl:text-5xl font-semibold">

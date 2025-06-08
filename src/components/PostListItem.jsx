@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 const PostListItem = () => {
   return (
     <div className="flex flex-col xl:flex-row gap-8 ">
-      {/* 图片 */}
       <div className="md:hidden xl:block xl:w-1/3">
         <HHImage
           src="/postImg.jpeg"
@@ -13,7 +12,7 @@ const PostListItem = () => {
           className="rounded-2xl object-cover"
         ></HHImage>
       </div>
-      {/* 内容 */}
+
       <div className="flex flex-col gap-2 xl:w-2/3">
         <Link to="/test" className="text-4xl font-semibold">
           lorem ipsum dolor sit, consectetur adipiscing elit,Ullam modieum aut
