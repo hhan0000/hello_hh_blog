@@ -1,24 +1,23 @@
-import "dotenv/config";
+import dotenv from "dotenv";
+
 import express from "express";
 import userRouter from "./routes/user.route.js";
 import postRouter from "./routes/post.route.js";
 import commentRouter from "./routes/comment.route.js";
-import webHookRouter from "./routes/webhook.route.js";
+// import webHookRouter from "./routes/webhook.route.js";
 import { connectDB } from "./lib/connectDB.js";
-import { clerkMiddleware, requireAuth } from "@clerk/express";
+// import { clerkMiddleware, requireAuth } from "@clerk/express";
 import cors from "cors";
+dotenv.config();
 const app = express();
 app.use(cors(process.env.CLIENT_HOST));
-app.use(clerkMiddleware());
-app.use("/webhooks", webHookRouter);
+// app.use(clerkMiddleware());
+// app.use("/webhooks", webHookRouter);
 // app.get("/auth", (req, res) => {
 //   const anthStatus = req.auth();
 //   res.json(anthStatus);
 // });
 
-app.get("/protected", requireAuth(), (req, res) => {
-  res.status(200).json({ message: "这是主页" });
-});
 app.use(express.json());
 // app.get("/", (req, res) => {});
 app.use("/users", userRouter);

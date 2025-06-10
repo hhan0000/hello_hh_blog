@@ -17,25 +17,25 @@ export const getPost = async (req, res) => {
   }
 };
 export const createPost = async (req, res) => {
-  const clerkUserId = req.auth().userId;
-  console.log(req.headers);
-  console.log("------------>", req.auth());
-  if (!clerkUserId) {
-    return res.status(401).json({ message: "未登录" });
-  }
-  const user = await User.findOne({ clerkUserId });
-  if (!user) {
-    return res.status(404).json({ message: "用户不存在" });
-  }
-  const newPost = new Post({ ...req.body, _id: user._id });
+  // const clerkUserId = req.auth().userId;
+  // console.log(req.headers);
+  // console.log("------------>", req.auth());
+  // if (!clerkUserId) {
+  //   return res.status(401).json({ message: "未登录" });
+  // }
+  // const user = await User.findOne({ clerkUserId });
+  // if (!user) {
+  //   return res.status(404).json({ message: "用户不存在" });
+  // }
+  const newPost = new Post({ ...req.body });
   const post = await newPost.save();
   res.status(200).json(post);
 };
 export const deletePost = async (req, res) => {
   try {
-    const clerkUserId = req.auth().userId;
+    const userId = req.auth().userId;
 
-    if (!clerkUserId) {
+    if (!userId) {
       return res.status(401).json({ message: "未登录" });
     }
     const user = await User.findOne({ clerkUserId });

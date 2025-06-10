@@ -1,10 +1,13 @@
 import express from "express";
-
+import { verifyToken } from "../middlewares/authMiddleware.js";
+import {
+  registerUser,
+  loginUser,
+  getProfile,
+} from "../controller/user.controller.js";
 const router = express.Router();
 
-router.get("/anothertest", (req, res) => {
-  res.status(200).json({
-    message: "This is another test route",
-  });
-});
+router.post("/register", registerUser);
+router.post("/login", loginUser);
+router.get("/profile", verifyToken, getProfile);
 export default router;

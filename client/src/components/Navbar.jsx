@@ -1,17 +1,19 @@
 import { useState } from "react";
 import HHImage from "./HHImage";
 import { Link } from "react-router-dom";
-import { SignedIn, SignedOut, UserButton, useAuth } from "@clerk/clerk-react";
+import { getToken } from "../utils/auth";
 import { useEffect } from "react";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  const { getToken } = useAuth();
+
   useEffect(() => {
-    getToken().then((token) => {
+    const token = getToken();
+    if (token) {
       console.log(token);
-    });
+    }
   }, []);
+
   return (
     <div className="w-full  h-16 flex items-center justify-between ">
       {/* LOGO */}
@@ -52,17 +54,11 @@ const Navbar = () => {
         <Link to="/">热门</Link>
         <Link to="/">趋势</Link>
         <Link to="/">关于</Link>
-
-        <SignedOut>
-          <Link to="/login">
-            <button className="py-2 px-4 rounded-3xl bg-blue-800 text-white">
-              登录 &#x1F600;
-            </button>
-          </Link>
-        </SignedOut>
-        <SignedIn>
-          <UserButton />
-        </SignedIn>
+        <Link to="/login">
+          <button className="py-2 px-4 rounded-3xl bg-blue-800 text-white">
+            登录 &#x1F600;
+          </button>
+        </Link>
       </div>
     </div>
   );
