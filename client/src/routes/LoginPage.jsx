@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Login } from "../api/user";
 import { setToken } from "../utils/auth";
+import { message } from "antd";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
@@ -13,7 +14,7 @@ const LoginPage = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault(); // 防止页面刷新
-    setError("");
+
     if (!username || !password) {
       setError("用户名和密码不能为空");
       return;
@@ -26,9 +27,7 @@ const LoginPage = () => {
         setToken(res.token);
         navigate("/home");
       } else {
-        console.log(res);
-        console.log(11111);
-        setError(res.message || "登录失败");
+        message.error(res.message || "登录失败");
       }
     } catch (err) {
       setError(err.message || "网络错误");

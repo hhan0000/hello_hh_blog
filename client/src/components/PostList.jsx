@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getPostList } from "../api/post";
 import PostListItem from "./PostListItem";
+import { message } from "antd";
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);
@@ -13,7 +14,7 @@ const PostList = () => {
         if (!res) throw new Error("API 返回异常");
         setPosts(res);
       })
-      .catch((err) => setError(err.message))
+      .catch((err) => message.error(err.message))
       .finally(() => setLoading(false));
   }, []);
 

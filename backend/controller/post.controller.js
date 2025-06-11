@@ -48,7 +48,7 @@ export const createPost = async (req, res) => {
     await newPost.save();
     res.status(200).json({
       message: "文章已创建",
-      post: { ...newPost, img: fileInfo.path },
+      slug: newPost.slug,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });

@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // 修改这里
 import "react-quill-new/dist/quill.snow.css";
 import ReactQuill from "react-quill-new";
 import { getToken, isLoggedIn } from "../utils/auth";
 import { getUserInfo } from "../api/user";
 import { createPost } from "../api/post";
-import axios from "axios";
+import { message } from "antd";
 
 const WritePage = () => {
+  const navigate = useNavigate(); // 使用 useNavigate 代替 useHistory
   const [user, setUser] = useState(null);
   const [imagePreview, setImagePreview] = useState(null); // 添加状态
   const [isSubmitting, setIsSubmitting] = useState(false); // 提交状态
@@ -69,7 +71,7 @@ const WritePage = () => {
     setIsSubmitting(true);
     setError("");
     if (!user || !user._id) {
-      setError("无法获取用户信息，请重新登录");
+      message.error("无法获取用户信息，请重新登录");
       setIsSubmitting(false);
       return;
     }
@@ -83,14 +85,25 @@ const WritePage = () => {
         data.append("img", formData.img);
       }
       data.append("user", user._id);
+      data.append("createBy", user.username);
       const response = await createPost(data);
-
-      console.log("博客已发布:", response.data);
-      alert("发布成功！");
-      // 清空表单或跳转到博客详情页
+      console.log(response.slug);
+      if (response.slug) {
+        message.success({
+          content: "文章发布成功！",
+          duration: 1.5,
+        });
+        setTimeout(() => {
+          // 使用 navigate 代替 history.push
+          navigate(`/${response.slug}`);
+        }, 1500);
+      }
     } catch (err) {
       console.error(err);
-      setError(err.response?.data?.message || "发布失败");
+      message.error({
+        content: err.response?.data?.message || "发布失败",
+        duration: 1.5,
+      });
     } finally {
       setIsSubmitting(false);
     }

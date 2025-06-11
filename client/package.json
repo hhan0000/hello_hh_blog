@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/v5-patch-for-react-19": "^1.0.3",
     "@clerk/clerk-react": "^5.31.9",
     "@clerk/localizations": "^3.16.4",
     "@imagekit/javascript": "^5.0.0",

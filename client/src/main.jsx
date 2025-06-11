@@ -1,5 +1,14 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import "@ant-design/v5-patch-for-react-19";
+// 在入口文件 index.js 中
+import { message } from "antd";
+
+message.config({
+  top: 100, // 距离顶部位置
+  duration: 2, // 自动关闭时长
+  maxCount: 3, // 最大同时显示数
+});
 import "./index.css";
 
 import {
