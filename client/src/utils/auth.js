@@ -27,3 +27,4 @@ export const hasToken = () => {
 export function isLoggedIn() {
   return !!localStorage.getItem("token");
 }
+export const logout = () => {};

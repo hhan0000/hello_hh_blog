@@ -1,65 +1,75 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import HHImage from "./HHImage";
 import { Link } from "react-router-dom";
-import { getToken, isLoggedIn } from "../utils/auth";
-import { useEffect } from "react";
+import LoginComponent from "./LoginComponent";
 
-const Navbar = () => {
+const Navbar = ({ user }) => {
   const [open, setOpen] = useState(false);
-  const LoginComponet = () => {
-    if (isLoggedIn) {
-      return <div>1111</div>;
-    } else {
-      return (
-        <Link to="/login">
-          <button className="py-2 px-4 rounded-3xl bg-blue-800 text-white">
-            登录 &#x1F600;
-          </button>
-        </Link>
-      );
-    }
-  };
+
   return (
-    <div className="w-full  h-16 flex items-center justify-between ">
+    <div className="w-full h-16 flex items-center justify-between px-4 sm:px-6 md:px-8 bg-white shadow-sm">
       {/* LOGO */}
-      <Link to="/" className=" flex items-center gap-4 text-2xl font-bold">
-        <HHImage src="/logo.png" alt="logo 图片" width={32} height={32} />
-        <span>你好啊李银河</span>
+      <Link
+        to="/"
+        className="flex items-center gap-2 md:gap-4 text-lg md:text-2xl font-bold"
+      >
+        <HHImage
+          src="/logo.png"
+          alt="logo 图片"
+          width={32}
+          height={32}
+          className="rounded-lg"
+        />
+        <span className="hidden md:inline">你好啊李银河</span>
       </Link>
-      {/* MOBILR MENU */}
+
+      {/* MOBILE MENU */}
       <div className="md:hidden">
         {/* mobile button */}
         <div
-          className="cursor-pointer text-2xl "
-          //   onClick={() => setOpen(!open)}
+          className="cursor-pointer text-2xl"
           onClick={() => setOpen((prev) => !prev)}
         >
-          {open ? "X" : "☰"}
+          {open ? "✕" : "☰"}
         </div>
+
         {/* mobile link list */}
         <div
-          className={`w-full h-screen flex flex-col items-center justify-center gap-8 font-medium text-lg  absolute top-16 transition-all ease-in-out  ${
-            open ? "-right-0" : "-right-[100%]"
+          className={`fixed w-full h-full flex flex-col items-center justify-center gap-8 font-medium text-lg bg-white z-50 top-0 left-0 transition-transform ${
+            open ? "translate-x-0" : "translate-x-full"
           }`}
         >
-          <Link to="/">主页</Link>
-          <Link to="/">热门</Link>
-          <Link to="/">趋势</Link>
-          <Link to="/">关于</Link>
-          <Link to="">
-            <button className="py-2 px-4 rounded-3xl bg-blue-800 text-white">
-              登录 &#x1F600;
-            </button>
+          <Link to="/" onClick={() => setOpen(false)}>
+            主页
           </Link>
+          <Link to="/popular" onClick={() => setOpen(false)}>
+            热门
+          </Link>
+          <Link to="/trending" onClick={() => setOpen(false)}>
+            趋势
+          </Link>
+          <Link to="/about" onClick={() => setOpen(false)}>
+            关于
+          </Link>
+          <LoginComponent user={user} />
         </div>
       </div>
+
       {/* DESKTOP MENU */}
-      <div className="hidden md:flex items-center gap-8 xl:gap-12 font-medium">
-        <Link to="/">主页</Link>
-        <Link to="/">热门</Link>
-        <Link to="/">趋势</Link>
-        <Link to="/">关于</Link>
-        <LoginComponet />
+      <div className="hidden md:flex items-center gap-6 lg:gap-8 font-medium">
+        <Link to="/" className="hover:text-blue-600 transition">
+          主页
+        </Link>
+        <Link to="/popular" className="hover:text-blue-600 transition">
+          热门
+        </Link>
+        <Link to="/trending" className="hover:text-blue-600 transition">
+          趋势
+        </Link>
+        <Link to="/about" className="hover:text-blue-600 transition">
+          关于
+        </Link>
+        <LoginComponent user={user} />
       </div>
     </div>
   );
