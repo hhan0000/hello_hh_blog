@@ -11,6 +11,7 @@ service.interceptors.request.use(
   (config) => {
     const token = getToken(); // 获取 token
     if (token) {
+      console.log("请求拦截器：", token);
       config.headers["Authorization"] = `Bearer ${token}`; // 假设后端需要 Bearer 前缀
     }
     return config;

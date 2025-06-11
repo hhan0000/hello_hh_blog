@@ -75,6 +75,7 @@ const Register = () => {
       className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: `url('/login_bg.png')` }}
     >
+      <div className="absolute inset-0 bg-black bg-opacity-30 backdrop-blur-sm" />
       <div className="absolute top-1/2 left-1/2 w-[350px] max-w-[90%]  -translate-x-1/2 -translate-y-1/2 rounded-xl bg-white bg-opacity-90 p-8 shadow-2xl backdrop-blur-md">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">
           注册

@@ -1,9 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import MainCategories from "../components/MainCategories";
 import FeaturedPosts from "../components/FeaturedPosts";
 import PostList from "../components/PostList";
+import { isLoggedIn } from "../utils/auth";
 // import PostList from "../componPostList";ents/
 function HomePage() {
+  if (!isLoggedIn()) {
+    return <Navigate to="/login" replace />;
+  }
   return (
     <div className="mt-4 flex-col gap-4">
       {/* 面包屑导航 */}

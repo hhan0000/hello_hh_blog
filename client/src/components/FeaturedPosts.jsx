@@ -1,6 +1,7 @@
 import React from "react";
 import HHImage from "./HHImage";
 import { Link } from "react-router-dom";
+// 这里接受四个数据，前四的数据
 const FeaturedPosts = () => {
   return (
     <div className="flex flex-col mt-8 lg:flex-row gap-8">
@@ -20,10 +21,11 @@ const FeaturedPosts = () => {
         </div>
         {/* 标题 */}
         <Link
+          // to={`/${post.slug}`}
           to="/test"
           className="text-xl lg:text-3xl font-semibold lg:font-bold"
         >
-          1111111111111111111111
+          这是第一的标题
         </Link>
       </div>
       {/* 其他的 */}

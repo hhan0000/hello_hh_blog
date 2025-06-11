@@ -14,8 +14,9 @@ import Register from "./routes/Register.jsx";
 import WritePage from "./routes/WritePage.jsx";
 import SignlePostPage from "./routes/SignlePostPage.jsx";
 import MainLayout from "./layout/MainLayout.jsx";
-import AuthProvider from "./components/AuthProvider.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import { isLoggedIn } from "./utils/auth";
+import NotFound from "./routes/NotFound.jsx";
 // 重新定义路由
 const router = createBrowserRouter([
   {
@@ -23,43 +24,30 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: isLoggedIn() ? (
-          <Navigate to="/home" replace />
-        ) : (
-          <Navigate to="/login" replace />
-        ),
+        element: <Navigate to={isLoggedIn() ? "/home" : "/login"} replace />,
       },
-
       {
         path: "/home",
         element: (
-          <AuthProvider>
+          <ProtectedRoute>
             <HomePage />
-          </AuthProvider>
+          </ProtectedRoute>
         ),
       },
       {
         path: "/posts",
         element: (
-          <AuthProvider>
+          <ProtectedRoute>
             <PostListPage />
-          </AuthProvider>
+          </ProtectedRoute>
         ),
       },
       {
         path: "/write",
         element: (
-          <AuthProvider>
+          <ProtectedRoute>
             <WritePage />
-          </AuthProvider>
-        ),
-      },
-      {
-        path: "/:slug",
-        element: (
-          <AuthProvider>
-            <SignlePostPage />
-          </AuthProvider>
+          </ProtectedRoute>
         ),
       },
       {
@@ -70,13 +58,23 @@ const router = createBrowserRouter([
         path: "/register",
         element: <Register />,
       },
+      {
+        path: "/:slug",
+        element: (
+          <ProtectedRoute>
+            <SignlePostPage />,
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "*",
+        element: <NotFound />,
+      },
     ],
   },
 ]);
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <RouterProvider router={router} />
-
-    {/* <App /> */}
   </StrictMode>
 );

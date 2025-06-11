@@ -55,7 +55,18 @@ export const loginUser = async (req, res) => {
   }
 };
 export const getProfile = async (req, res) => {
-  const user = await User.findById(req.user.id).select("-password");
-  if (!user) return res.status(404).json({ message: "用户不存在" });
-  res.json(user);
+  try {
+    if (!req.auth || !req.auth.userId) {
+      return res.status(401).json({ message: "用户未授权" });
+    }
+
+    const userId = req.auth.userId;
+
+    const user = await User.findById(userId).select("-password");
+    if (!user) return res.status(404).json({ message: "用户不存在" });
+
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: "服务器错误" });
+  }
 };

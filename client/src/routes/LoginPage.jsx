@@ -1,7 +1,7 @@
 import { FaUser, FaLock, FaAlipay, FaWeixin } from "react-icons/fa";
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { login } from "../api/user";
+import { Login } from "../api/user";
 import { setToken } from "../utils/auth";
 
 const LoginPage = () => {
@@ -20,7 +20,7 @@ const LoginPage = () => {
     }
     try {
       setLoading(true);
-      const res = await login({ username, password });
+      const res = await Login({ username, password });
 
       if (res.code === 200 && res.token) {
         setToken(res.token);
@@ -59,6 +59,7 @@ const LoginPage = () => {
               placeholder="用户名"
               className="w-full bg-transparent outline-none"
               value={username}
+              autoComplete="username"
               onChange={(e) => setUsername(e.target.value)}
               required
             />

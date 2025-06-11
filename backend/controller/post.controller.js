@@ -1,4 +1,6 @@
+import { nanoid } from "nanoid";
 import Post from "../models/post.model.js";
+
 import User from "../models/user.model.js";
 export const getPosts = async (req, res) => {
   try {
@@ -17,19 +19,40 @@ export const getPost = async (req, res) => {
   }
 };
 export const createPost = async (req, res) => {
-  // const clerkUserId = req.auth().userId;
-  // console.log(req.headers);
-  // console.log("------------>", req.auth());
-  // if (!clerkUserId) {
-  //   return res.status(401).json({ message: "未登录" });
-  // }
-  // const user = await User.findOne({ clerkUserId });
-  // if (!user) {
-  //   return res.status(404).json({ message: "用户不存在" });
-  // }
-  const newPost = new Post({ ...req.body });
-  const post = await newPost.save();
-  res.status(200).json(post);
+  try {
+    const { title, category, desc, content } = req.body;
+    const userId = req.auth.userId; // 从 token 中取的用户 id
+    const fileInfo = req.file; // 上传的图片信息
+
+    if (!title || !content || !category) {
+      return res.status(400).json({ message: "缺少必要字段" });
+    }
+
+    if (!userId) {
+      return res.status(401).json({ message: "未登录" });
+    }
+
+    const slug = nanoid(10); // 生成一个10位的唯一ID
+
+    const newPost = new Post({
+      title,
+      category,
+      desc,
+      content,
+      slug,
+      user: userId,
+      img: fileInfo ? fileInfo.path : null,
+      createdAt: new Date(),
+    });
+
+    await newPost.save();
+    res.status(200).json({
+      message: "文章已创建",
+      post: { ...newPost, img: fileInfo.path },
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 export const deletePost = async (req, res) => {
   try {

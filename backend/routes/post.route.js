@@ -1,4 +1,8 @@
+import upload from "../middlewares/upload.js";
+
+import { verifyToken } from "../middlewares/authMiddleware.js";
 import express from "express";
+
 import {
   getPost,
   getPosts,
@@ -7,8 +11,8 @@ import {
 } from "../controller/post.controller.js";
 const router = express.Router();
 
-router.get("/", getPosts);
-router.get("/:slug", getPost);
-router.post("/", createPost);
+router.get("/list", getPosts);
+router.get("/list/:slug", getPost);
+router.post("/add", verifyToken, upload.single("img"), createPost);
 router.delete("/:id", deletePost);
 export default router;

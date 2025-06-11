@@ -1,25 +1,48 @@
+import { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import HHImage from "../components/HHImage";
-import { Link } from "react-router-dom";
 import PostMenuAction from "../components/PostMenuAction";
 import Search from "../components/Search";
 import Comments from "../components/Comments";
+import Paragraph from "../components/Paragraph";
+import { getPostBySlug } from "../api/post";
 const SignlePostPage = () => {
+  const { slug } = useParams();
+  console.log(slug);
+  const [post, setPost] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  useEffect(() => {
+    getPostBySlug(slug)
+      .then((res) => {
+        console.log(res);
+        if (!res) throw new Error("API 返回异常");
+        setPost(res);
+      })
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false));
+  }, []);
+  if (loading) return <div>加载中...</div>;
+  if (error) return <div>错误: {error}</div>;
+  if (!post) return <div className="text-center py-12">暂无文章</div>;
   return (
     <div className="flex flex-col gap-8">
       <div className="flex gap-8">
         <div className="lg:w-3/5 flex flex-col gap-8">
           <h1 className="text-xl md:text-3xl 2xl:text-5xl font-semibold">
-            ipsum dolor sit, consectetur adipiscing elit,Ullam modieum aut
+            {post.title}
+            {/* ipsum dolor sit, consectetur adipiscing elit,Ullam modieum aut */}
           </h1>
           <div className="flex items-center gap-2 text-gray-400 text-sm">
             <span>作者</span>
-            <Link className="text-blue-800">张伟杰</Link>
+            <Link className="text-blue-800">{post.creatwBy}</Link>
             <span>栏目</span>
-            <Link className="text-blue-800">网页设计</Link>
+            <Link className="text-blue-800">{post.category}</Link>
             <span>两天前</span>
           </div>
           <p className="text-gray-500 font-medium">
-            晨光熹微，山茶含露而绽，胭脂色花瓣在薄雾中洇开。布谷声催醒梯田，老农扶犁翻起新泥，黝黑土地蒸腾着温润气息。三两幼犬追逐落英，踏碎溪边金铃般的连翘花影。采蕨妇人竹篮渐满，忽闻山那头飘来货郎摇鼓的叮咚。牧羊少年倚着野樱吹叶笛，雪瓣落满青衿。纸鸢牵着童谣扶摇直上，划破瓷青色的天际。
+            {post.desc}
+            {/* 晨光熹微，山茶含露而绽，胭脂色花瓣在薄雾中洇开。布谷声催醒梯田，老农扶犁翻起新泥，黝黑土地蒸腾着温润气息。三两幼犬追逐落英，踏碎溪边金铃般的连翘花影。采蕨妇人竹篮渐满，忽闻山那头飘来货郎摇鼓的叮咚。牧羊少年倚着野樱吹叶笛，雪瓣落满青衿。纸鸢牵着童谣扶摇直上，划破瓷青色的天际。 */}
           </p>
         </div>
         <div className="hidden lg:block w-2/5">
@@ -33,7 +56,8 @@ const SignlePostPage = () => {
       {/* 内容 */}
       <div className="flex flex-col md:flex-row gap-12">
         {/* 文章 */}
-        <div className="lg:text-lg flex-1 flex flex-col gap-6 text-justify">
+        <Paragraph content={post.content}></Paragraph>
+        {/* <div className="lg:text-lg flex-1 flex flex-col gap-6 text-justify">
           <p>
             这是我父亲的背影。那时我在北京读书，寒假回家，正是腊月二十九日。第二天就是除夕了。那天晚上，我和父亲在车站上等车。父亲要我买橘子，我说：“不要买了，明天就有了。”他不听，非要去买。
           </p>
@@ -67,7 +91,7 @@ const SignlePostPage = () => {
           <p>
             他走了几步，回过头看见我，说：“进去吧，里边没人。”等他的背影混入来来往往的人里，再找不着了，我便进来坐下，我的眼泪又来了。
           </p>
-        </div>
+        </div> */}
         {/* 主页 */}
         <div className="px-2 h-max sticky top-0">
           <h1 className=" mb-4 text-sm font-medium">作者</h1>
