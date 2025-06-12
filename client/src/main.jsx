@@ -1,7 +1,10 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import ErrorBoundary from "./components/ErrorBoundary.jsx";
 import "@ant-design/v5-patch-for-react-19";
-// 在入口文件 index.js 中
+import { Provider } from "react-redux";
+import { store, persistor } from "./store";
+import { PersistGate } from "redux-persist/integration/react";
 import { message } from "antd";
 
 message.config({
@@ -84,6 +87,12 @@ const router = createBrowserRouter([
 ]);
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <ErrorBoundary>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <RouterProvider router={router} />
+        </PersistGate>
+      </Provider>
+    </ErrorBoundary>
   </StrictMode>
 );

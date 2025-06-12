@@ -10,3 +10,7 @@ export const register = (data) => {
 export const getUserInfo = () => {
   return request({ url: "/users/profile", method: "get" });
 };
+
+export const updateUser = (data) => {
+  return request({ url: "/users/update", method: "post", data });
+};

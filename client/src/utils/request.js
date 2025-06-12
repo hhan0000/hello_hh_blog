@@ -14,6 +14,9 @@ service.interceptors.request.use(
       console.log("请求拦截器：", token);
       config.headers["Authorization"] = `Bearer ${token}`; // 假设后端需要 Bearer 前缀
     }
+    config.headers["Cache-Control"] = "no-cache";
+    config.headers["Pragma"] = "no-cache";
+    config.headers["Expires"] = "0";
     return config;
   },
   (error) => {

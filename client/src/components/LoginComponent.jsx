@@ -4,13 +4,22 @@ import { Popover, Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import UserProfilePopover from "./UserProfilePopover";
 import { isLoggedIn, logout } from "../utils/auth";
+import { useDispatch } from "react-redux";
+import { clearUserInfo } from "../store/reducer/userSlice";
+import { persistor } from "../store";
+import { useNavigate } from "react-router-dom"; // 导入 useNavigate
+import { removeToken } from "../utils/auth";
 
 const LoginComponent = ({ user }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate(); // 使用 useNavigate 代替 useHistory
   // 处理退出登录
   const handleLogout = () => {
-    logout(); // 调用登出方法
-    // 执行重定向到登录页面
-    window.location.href = "/login";
+    dispatch(clearUserInfo());
+
+    removeToken();
+    persistor.purge();
+    navigate("/login");
   };
 
   if (isLoggedIn()) {
@@ -18,9 +27,8 @@ const LoginComponent = ({ user }) => {
       <Popover
         content={<UserProfilePopover onLogout={handleLogout} user={user} />}
         title={null}
-        trigger="click"
-        overlayStyle={{ padding: 0 }}
-        placement="bottomRight"
+        trigger="hover"
+        placement="bottom"
       >
         <div className="flex items-center gap-2 cursor-pointer hover:bg-gray-100 p-2 rounded-full transition">
           <Avatar

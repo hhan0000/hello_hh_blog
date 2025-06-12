@@ -17,7 +17,10 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    img: String,
+    avatar: {
+      type: String,
+      default: "",
+    },
     savedPosts: {
       type: [String],
       default: [],

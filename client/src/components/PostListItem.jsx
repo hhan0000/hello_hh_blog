@@ -7,7 +7,7 @@ const PostListItem = ({ post }) => {
   const fullImgUrl = post.img
     ? `http://localhost:3000/${post.img}`
     : "/postImg.jpeg";
-  console.log(fullImgUrl);
+
   return (
     <div className="flex flex-col xl:flex-row gap-8 ">
       <div className="md:hidden xl:block xl:w-1/3">

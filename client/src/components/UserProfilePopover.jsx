@@ -1,4 +1,3 @@
-import React from "react";
 import { Avatar, Badge, Button, Divider, Typography } from "antd";
 import {
   UserOutlined,
@@ -11,7 +10,6 @@ import {
 const { Text } = Typography;
 
 const UserProfilePopover = ({ onLogout, user }) => {
-  // 从props中获取用户信息
   const { username = "未登录用户", email = "" } = user || {};
 
   // 假设有消息通知数据
@@ -20,15 +18,20 @@ const UserProfilePopover = ({ onLogout, user }) => {
     { id: 2, type: "like", content: "小红点赞了你的帖子", read: true },
   ];
 
-  // 未读消息数量
   const unreadCount = notifications.filter((n) => !n.read).length;
 
   return (
     <div style={{ width: 300 }}>
-      {/* 用户信息区域 */}
       <div className="flex items-center p-4">
         <Badge count={unreadCount} offset={[-10, 10]}>
-          <Avatar size={64} icon={<UserOutlined />} className="bg-blue-500" />
+          <Avatar
+            size={64}
+            icon={<UserOutlined />}
+            src={
+              user.avatar ? `http://localhost:3000/${user?.avatar}` : undefined
+            }
+            className="bg-blue-500"
+          />
         </Badge>
         <div className="ml-4">
           <Text strong className="text-lg">
@@ -43,7 +46,6 @@ const UserProfilePopover = ({ onLogout, user }) => {
 
       <Divider className="my-2" />
 
-      {/* 消息通知区域 */}
       <div className="p-2 max-h-48 overflow-y-auto">
         <Text strong className="flex items-center">
           <BellOutlined className="mr-2" /> 通知

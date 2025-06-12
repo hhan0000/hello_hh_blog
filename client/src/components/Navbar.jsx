@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import HHImage from "./HHImage";
 import { Link } from "react-router-dom";
 import LoginComponent from "./LoginComponent";
 
-const Navbar = ({ user }) => {
+import { useSelector } from "react-redux";
+const Navbar = () => {
   const [open, setOpen] = useState(false);
-
+  const userInfo = useSelector((state) => state.user.userInfo);
+  console.log("用户信息:", userInfo);
   return (
     <div className="w-full h-16 flex items-center justify-between px-4 sm:px-6 md:px-8 bg-white shadow-sm">
       {/* LOGO */}
@@ -51,7 +53,7 @@ const Navbar = ({ user }) => {
           <Link to="/about" onClick={() => setOpen(false)}>
             关于
           </Link>
-          <LoginComponent user={user} />
+          <LoginComponent user={userInfo} />
         </div>
       </div>
 
@@ -69,7 +71,7 @@ const Navbar = ({ user }) => {
         <Link to="/about" className="hover:text-blue-600 transition">
           关于
         </Link>
-        <LoginComponent user={user} />
+        <LoginComponent user={userInfo} />
       </div>
     </div>
   );

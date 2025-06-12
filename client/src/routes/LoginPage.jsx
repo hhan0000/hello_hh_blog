@@ -1,5 +1,7 @@
 import { FaUser, FaLock, FaAlipay, FaWeixin } from "react-icons/fa";
-import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setUserInfo } from "../store/reducer/userSlice";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Login } from "../api/user";
 import { setToken } from "../utils/auth";
@@ -11,6 +13,7 @@ const LoginPage = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogin = async (e) => {
     e.preventDefault(); // 防止页面刷新
@@ -22,10 +25,11 @@ const LoginPage = () => {
     try {
       setLoading(true);
       const res = await Login({ username, password });
-
+      console.log(res.user.avatar);
       if (res.code === 200 && res.token) {
         setToken(res.token);
-        navigate("/home");
+        dispatch(setUserInfo(res.user));
+        navigate("/home", { replace: true });
       } else {
         message.error(res.message || "登录失败");
       }
