@@ -6,7 +6,7 @@ import {
   BellOutlined,
   MailOutlined,
 } from "@ant-design/icons";
-
+import { isLoggedIn } from "../utils/auth";
 const { Text } = Typography;
 
 const UserProfilePopover = ({ onLogout, user }) => {
@@ -39,7 +39,8 @@ const UserProfilePopover = ({ onLogout, user }) => {
           </Text>
           {email && <p className="text-gray-500">{email}</p>}
           <p className="mt-1">
-            <Badge status="success" text="在线" />
+            {isLoggedIn() && <Badge status="success" text="在线" />}
+            {!isLoggedIn() && <Badge status="error" text="离线" />}
           </p>
         </div>
       </div>

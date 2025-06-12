@@ -6,6 +6,7 @@ import { getToken, isLoggedIn } from "../utils/auth";
 import { getUserInfo } from "../api/user";
 import { createPost } from "../api/post";
 import { message } from "antd";
+import ImageUploader from "../components/ImageUploader";
 
 const WritePage = () => {
   const navigate = useNavigate(); // 使用 useNavigate 代替 useHistory
@@ -110,26 +111,16 @@ const WritePage = () => {
   };
 
   return (
-    <div className="h-[calc(100vh-64px)] flex flex-col gap-6 md:h-[calc(100vh-80px)]">
+    <div className="h-[calc(100vh-64px)] flex flex-col gap-6 mt-4 md:h-[calc(100vh-80px)]">
       <h1 className="text-cl font-light">写一个新的博客</h1>
       <form className="flex flex-col gap-6 flex-1 mb-6" onSubmit={handleSubmit}>
         {/* 上传按钮 */}
-        <label className="w-max p-2 shadow-md text-sm bg-white text-gray-500 rounded-xl cursor-pointer">
-          添加一张图片
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageUpload}
-            hidden
-          />
-        </label>
-        {imagePreview && (
-          <img
-            src={imagePreview}
-            alt="预览图"
-            className="w-1/2 h-auto rounded shadow-md"
-          />
-        )}
+        <ImageUploader
+          value={formData.img}
+          onChange={(file) => setFormData((prev) => ({ ...prev, img: file }))}
+          isUploading={isSubmitting}
+          error={error}
+        />
         <input
           name="title"
           value={formData.title}
@@ -177,7 +168,7 @@ const WritePage = () => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="bg-blue-800 text-white font-medium rounded-xl mt-4 p-2 w-36"
+          className="bg-blue-800 text-white font-medium rounded-xl my-2 p-2 w-36 disabled:bg-blue-400 disabled:cursor-not-allowed"
         >
           {isSubmitting ? "发布中..." : "发布"}
         </button>

@@ -2,16 +2,23 @@ import React from "react";
 
 const Paragraph = ({
   content,
-  delimiter = "@", // 默认分隔符
-  wrapper: Wrapper = "div", // 默认容器标签
-  segmentElement: Segment = "p", // 默认段落标签
+  wrapper: Wrapper = "div",
+  segmentElement: Segment = "p",
 }) => {
-  const segments = content.split(delimiter).filter((s) => s.trim());
+  // 使用 DOMParser 解析 HTML 字符串
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(content, "text/html");
+
+  // 获取所有 <p> 元素并提取其纯文本内容
+  const segments = Array.from(doc.querySelectorAll("p"))
+    .map((p) => p.textContent.trim())
+    .filter((text) => text); // 过滤掉空段落
+
   return (
     <Wrapper className="lg:text-lg flex-1 flex flex-col gap-6 text-justify">
       {segments.map((text, index) => (
         <Segment key={index} className={`segment-${index}`}>
-          {text.trim()}
+          {text}
         </Segment>
       ))}
     </Wrapper>

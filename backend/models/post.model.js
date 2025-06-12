@@ -10,7 +10,8 @@ const postSchema = new Schema(
     },
     category: {
       type: String,
-      required: true,
+
+      default: "general",
     },
     img: {
       type: String,

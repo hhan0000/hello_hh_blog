@@ -19,8 +19,8 @@ function HomePage() {
       {/* 介绍 */}
       <div className="flex items-center justify-between">
         {/* 标题 */}
-        <div className="">
-          <h1 className="text-gray-800 text-2xl md:text-5xl lg:text-6xl font-bold">
+        <div className="rounded-2xl">
+          <h1 className="text-gray-800 text-2xl md:text-5xl  lg:text-6xl font-bold">
             你好，欢迎来到我的博客
           </h1>
           <p className="mt-8 text-md md:text-xl ">

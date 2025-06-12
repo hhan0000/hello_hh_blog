@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import HHImage from "./HHImage";
 import { Link } from "react-router-dom";
 import LoginComponent from "./LoginComponent";
@@ -9,7 +9,7 @@ const Navbar = () => {
   const userInfo = useSelector((state) => state.user.userInfo);
   console.log("用户信息:", userInfo);
   return (
-    <div className="w-full h-16 flex items-center justify-between px-4 sm:px-6 md:px-8 bg-white shadow-sm">
+    <div className="w-full h-16 flex items-center justify-between px-4 mt-1 sm:px-6 md:px-8 rounded-2xl bg-white shadow-sm">
       {/* LOGO */}
       <Link
         to="/"

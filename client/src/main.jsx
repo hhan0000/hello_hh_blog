@@ -27,6 +27,7 @@ import WritePage from "./routes/WritePage.jsx";
 import SignlePostPage from "./routes/SignlePostPage.jsx";
 import MainLayout from "./layout/MainLayout.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import Setting from "./routes/Setting.jsx";
 import { isLoggedIn } from "./utils/auth";
 import NotFound from "./routes/NotFound.jsx";
 // 重新定义路由
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path: "/setting",
+        element: <Setting />,
       },
       {
         path: "/:slug",
