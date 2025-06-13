@@ -7,11 +7,12 @@ import {
   MailOutlined,
 } from "@ant-design/icons";
 import { isLoggedIn } from "../utils/auth";
+import { useNavigate } from "react-router-dom";
 const { Text } = Typography;
 
 const UserProfilePopover = ({ onLogout, user }) => {
   const { username = "未登录用户", email = "" } = user || {};
-
+  const navigate = useNavigate();
   // 假设有消息通知数据
   const notifications = [
     { id: 1, type: "comment", content: "小明评论了你的文章", read: false },
@@ -81,7 +82,7 @@ const UserProfilePopover = ({ onLogout, user }) => {
           type="text"
           icon={<SettingOutlined />}
           className="flex items-center justify-center"
-          onClick={() => (window.location.href = "/settings")}
+          onClick={() => navigate("/settings")}
         >
           个人设置
         </Button>
@@ -89,7 +90,7 @@ const UserProfilePopover = ({ onLogout, user }) => {
           type="text"
           icon={<MailOutlined />}
           className="flex items-center justify-center"
-          onClick={() => (window.location.href = "/messages")}
+          onClick={() => navigate("/messages")}
         >
           我的消息
         </Button>
@@ -97,7 +98,7 @@ const UserProfilePopover = ({ onLogout, user }) => {
           type="text"
           icon={<UserOutlined />}
           className="flex items-center justify-center"
-          onClick={() => (window.location.href = `/user/${user?.id || ""}`)}
+          onClick={() => navigate(`/user/${user?.id || ""}`)}
         >
           个人主页
         </Button>

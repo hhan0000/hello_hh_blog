@@ -13,7 +13,7 @@ message.config({
   maxCount: 3, // 最大同时显示数
 });
 import "./index.css";
-
+import "antd/dist/reset.css";
 import {
   createBrowserRouter,
   RouterProvider,
