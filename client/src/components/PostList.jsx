@@ -3,12 +3,13 @@ import { getPostList } from "../api/post";
 import PostListItem from "./PostListItem";
 import { message } from "antd";
 
-const PostList = () => {
+const PostList = ({ category }) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true); // 新增加载状态
   const [error, setError] = useState(null);
+
   useEffect(() => {
-    getPostList()
+    getPostList({ category })
       .then((res) => {
         console.log(res);
         if (!res) throw new Error("API 返回异常");
@@ -16,7 +17,7 @@ const PostList = () => {
       })
       .catch((err) => message.error(err.message))
       .finally(() => setLoading(false));
-  }, []);
+  }, [category]);
 
   if (loading) return <div>加载中...</div>;
   if (error) return <div>错误: {error}</div>;

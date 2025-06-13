@@ -11,10 +11,10 @@ const MainCategories = () => {
           to="/posts"
           className="bg-blue-800 text-white rounded-full px-4 py-2"
         >
-          全部文章
+          全部
         </Link>
         <Link
-          to="/posts?category=web-design"
+          to="/posts?category=web_design"
           className="hover:bg-blue-50    rounded-full px-4 py-2"
         >
           网页设计
@@ -23,10 +23,10 @@ const MainCategories = () => {
           to="/posts?category=development"
           className="hover:bg-blue-50  rounded-full px-4 py-2"
         >
-          前沿发展
+          开发
         </Link>{" "}
         <Link
-          to="/posts?category=daatbase"
+          to="/posts?category=databases"
           className="hover:bg-blue-50 rounded-full px-4 py-2"
         >
           数据库
@@ -35,26 +35,14 @@ const MainCategories = () => {
           to="/posts?category=seo"
           className="hover:bg-blue-50  rounded-full px-4 py-2"
         >
-          搜索引擎
-        </Link>{" "}
+          搜索引擎优化
+        </Link>
         <Link
-          to="/posts?category=markrting"
+          to="/posts?category=markting"
           className="hover:bg-blue-50  rounded-full px-4 py-2"
         >
-          市场
-        </Link>{" "}
-        {/* <Link
-          to="/posts?category=backend"
-          className="hover:bg-blue-50 rounded-full px-4 py-2"
-        >
-          后端技术
-        </Link>{" "}
-        <Link
-          to="/posts?category=frontend"
-          className="hover:bg-blue-50 rounded-full px-4 py-2"
-        >
-          前端技术
-        </Link> */}
+          营销
+        </Link>
       </div>
       <span className="text-xl font-medium">|</span>
       {/* 搜索按钮 */}

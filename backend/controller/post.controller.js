@@ -2,9 +2,13 @@ import { nanoid } from "nanoid";
 import Post from "../models/post.model.js";
 
 import User from "../models/user.model.js";
+// 获取所有文章
 export const getPosts = async (req, res) => {
   try {
-    const posts = await Post.find({});
+    const { category } = req.query;
+    console.log(category);
+    const query = category ? { category } : {};
+    const posts = await Post.find(query);
     res.status(200).json(posts);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -18,6 +22,7 @@ export const getPost = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+// 创建文章
 export const createPost = async (req, res) => {
   try {
     const { title, category, desc, content } = req.body;
@@ -54,9 +59,10 @@ export const createPost = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+// 删除文章
 export const deletePost = async (req, res) => {
   try {
-    const userId = req.auth().userId;
+    const userId = req.auth.userId;
 
     if (!userId) {
       return res.status(401).json({ message: "未登录" });

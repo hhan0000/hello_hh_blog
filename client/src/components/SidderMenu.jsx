@@ -77,22 +77,22 @@ const SidderMenu = () => {
       <h1 className=" mt-8 mb-4 text-sm font-medium">分类</h1>
       <div className="flex flex-col gap-2 text-sm">
         <Link to="/posts" className="underline">
-          ALL
+          全部
         </Link>
-        <Link to="/posts?cat=web-design" className="underline">
-          Web design
+        <Link to="/posts?cat=web_design" className="underline">
+          网页设计
         </Link>
         <Link to="/posts?cat=development" className="underline">
-          Development
+          开发
         </Link>
         <Link to="/posts?cat=database" className="underline">
-          Databases
+          数据库
         </Link>
         <Link to="/posts?cat=seo" className="underline">
-          Seranch engineeall
+          搜索引擎优化
         </Link>
         <Link to="/posts?cat=markting" className="underline">
-          Markting
+          营销
         </Link>
       </div>
     </div>

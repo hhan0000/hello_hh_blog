@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import HHImage from "../components/HHImage";
+import { getCategoryName } from "../utils/util";
 import PostMenuAction from "../components/PostMenuAction";
 import Search from "../components/Search";
 import Comments from "../components/Comments";
@@ -36,7 +37,9 @@ const SignlePostPage = () => {
             <span>作者</span>
             <Link className="text-blue-800">{post.creatwBy}</Link>
             <span>栏目</span>
-            <Link className="text-blue-800">{post.category}</Link>
+            <Link className="text-blue-800">
+              {getCategoryName(post.category)}
+            </Link>
             <span>两天前</span>
           </div>
           <p className="text-gray-500 font-medium">{post.desc}</p>

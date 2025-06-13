@@ -72,7 +72,7 @@ const router = createBrowserRouter([
         element: <Register />,
       },
       {
-        path: "/setting",
+        path: "/settings",
         element: <Setting />,
       },
       {

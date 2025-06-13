@@ -1,9 +1,10 @@
 import request from "@/utils/request";
 // 获取全部
-export function getPostList() {
+export function getPostList(params = {}) {
   return request({
     url: "/posts/list",
     method: "get",
+    params,
   });
 }
 // 获取单个

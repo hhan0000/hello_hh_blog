@@ -12,9 +12,9 @@ function HomePage() {
     <div className="mt-4 flex-col gap-4">
       {/* 面包屑导航 */}
       <div className="flex gap-2">
-        <Link to="/">主页</Link>
+        {/* <Link to="/">主页</Link>
         <span>/</span>
-        <span className="text-blue-800">博客和文章</span>
+        <span className="text-blue-800">博客和文章</span> */}
       </div>
       {/* 介绍 */}
       <div className="flex items-center justify-between">

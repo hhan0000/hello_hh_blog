@@ -139,12 +139,12 @@ const WritePage = () => {
             onChange={handleInputChange}
             className="p-2 rounded-xl bg-white shadow-md"
           >
-            <option value="general">General</option>
-            <option value="Web-design">Web design</option>
-            <option value="developments">Development</option>
-            <option value="databases">Databases</option>
-            <option value="seo">Search Engine</option>
-            <option value="marketing">Marketing</option>
+            <option value="general">通用</option>
+            <option value="web_design">网页设计</option>
+            <option value="development">开发</option>
+            <option value="databases">数据库</option>
+            <option value="seo">搜索引擎优化</option>
+            <option value="marketing">营销</option>
           </select>
         </div>
 

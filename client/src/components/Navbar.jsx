@@ -29,7 +29,7 @@ const Navbar = () => {
       <div className="md:hidden">
         {/* mobile button */}
         <div
-          className="cursor-pointer text-2xl"
+          className="cursor-pointer text-2xl  "
           onClick={() => setOpen((prev) => !prev)}
         >
           {open ? "✕" : "☰"}
@@ -37,8 +37,8 @@ const Navbar = () => {
 
         {/* mobile link list */}
         <div
-          className={`fixed w-full h-full flex flex-col items-center justify-center gap-8 font-medium text-lg bg-white z-50 top-0 left-0 transition-transform ${
-            open ? "translate-x-0" : "translate-x-full"
+          className={`w-full h-screen flex flex-col items-center justify-center gap-8 font-medium text-lg  absolute top-16 transition-all ease-in-out  bg-[#e6e6ff] ${
+            open ? "-right-0" : "-right-[100%]"
           }`}
         >
           <Link to="/" onClick={() => setOpen(false)}>

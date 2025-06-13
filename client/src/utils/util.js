@@ -62,3 +62,23 @@ export const isEmail = (email) => {
   // 使用正则表达式测试输入并返回结果
   return reg.test(email);
 };
+
+const categoryMap = {
+  web_design: "网页设计",
+  wen_design: "网页设计",
+  general: "全部",
+  development: "开发",
+  databases: "数据库",
+  seo: "搜索引擎优化",
+  marketing: "营销",
+};
+export const getCategoryName = (category) => {
+  return categoryMap[category] || "";
+};
+
+// utils/breadcrumbs.js
+export const generateBreadcrumbs = (pathname) => {
+  if (!pathname) return "";
+  const paths = pathname.split("=");
+  return paths[1];
+};
