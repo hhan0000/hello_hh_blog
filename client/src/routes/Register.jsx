@@ -58,7 +58,7 @@ const Register = () => {
       setLoading(true);
       const res = await register(formData);
 
-      if (res.data.code === 200) {
+      if (res.code === 200) {
         navigate("/login");
       } else {
         setErrors({ server: res.message || "注册失败" });

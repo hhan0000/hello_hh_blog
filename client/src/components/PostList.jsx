@@ -21,25 +21,12 @@ const PostList = ({ category }) => {
 
   if (loading) return <div>加载中...</div>;
   if (error) return <div>错误: {error}</div>;
-  if (!posts.length) return <div className="text-center py-12">暂无文章</div>;
+  if (!posts.length) return <div className="text-center py-12">帖子未找到</div>;
   return (
     <div className="flex flex-col gap-12  mb-8">
       {posts.map((post) => (
         <PostListItem key={post.slug} post={post} />
       ))}
-      {/* <PostListItem />
-      <PostListItem />
-      <PostListItem />
-      <PostListItem />
-      <PostListItem />
-      <PostListItem />
-      <PostListItem />
-      <PostListItem />
-      <PostListItem />
-      <PostListItem />
-      <PostListItem />
-      <PostListItem />
-      <PostListItem /> */}
     </div>
   );
 };

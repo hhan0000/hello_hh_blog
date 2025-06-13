@@ -35,12 +35,13 @@ const SignlePostPage = () => {
           </h1>
           <div className="flex items-center gap-2 text-gray-400 text-sm">
             <span>作者</span>
-            <Link className="text-blue-800">{post.creatwBy}</Link>
+            <Link className="text-blue-800">{post.user.createdBy}</Link>
             <span>栏目</span>
             <Link className="text-blue-800">
               {getCategoryName(post.category)}
             </Link>
-            <span>两天前</span>
+            <span>发布时间</span>
+            <span>{post.createdAt}</span>
           </div>
           <p className="text-gray-500 font-medium">{post.desc}</p>
         </div>
@@ -68,14 +69,11 @@ const SignlePostPage = () => {
                 width="48"
                 height="48"
               />
-              <Link className="text-blue-800">朱自清</Link>
+              <Link className="text-blue-800">{post.user.createdBy}</Link>
             </div>
 
             {/* 个人简介 */}
-            <p className="text-gray-500 text-sm">
-              {" "}
-              他走了几步，回过头看见我，{" "}
-            </p>
+            <p className="text-gray-500 text-sm">{post.user.desc}</p>
             <div className="flex gap-2 ">
               <Link>
                 <HHImage src="facebook.svg" />

@@ -36,7 +36,11 @@ const postSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    visit: {
+    views: {
+      type: Number,
+      default: 0,
+    },
+    likes: {
       type: Number,
       default: 0,
     },

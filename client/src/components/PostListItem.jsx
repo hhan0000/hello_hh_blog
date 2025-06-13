@@ -25,12 +25,12 @@ const PostListItem = ({ post }) => {
         </Link>
         <div className="flex items-center gap-2 text-gray-400 text-sm">
           <span>作者</span>
-          <Link className="text-blue-800">张伟杰</Link>
+          <Link className="text-blue-800">{post.user.createdBy}</Link>
           <span>栏目</span>
           <Link className="text-blue-800">
             {getCategoryName(post.category)}
           </Link>
-          <span>两天前</span>
+          <span>{post.createdAt}</span>
         </div>
         <p>{post.desc}</p>
         <Link className="text-blue-800 underline text-sm" to={`/${post.slug}`}>

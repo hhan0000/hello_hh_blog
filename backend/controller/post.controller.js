@@ -8,16 +8,59 @@ export const getPosts = async (req, res) => {
     const { category } = req.query;
     console.log(category);
     const query = category ? { category } : {};
-    const posts = await Post.find(query);
-    res.status(200).json(posts);
+    const posts = await Post.find(query).populate({
+      path: "user",
+      select: "username description",
+      transform: (user) => ({
+        createdBy: user.username,
+        desc: user.description,
+      }),
+    });
+    const processedPosts = posts.map((post) => ({
+      id: post._id,
+      title: post.title,
+      content: post.content,
+      category: post.category,
+
+      img: post.img,
+      slug: post.slug,
+      createdAt: post.createdAt.toISOString().split("T")[0], // 格式化日期
+      updatedAt: post.updatedAt.toISOString().split("T")[0],
+      user: post.user, // 已通过 transform 处理
+      views: post.views || 0,
+      likes: post.likes || 0,
+    }));
+    res.status(200).json(processedPosts);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
 };
 export const getPost = async (req, res) => {
   try {
-    const post = await Post.findOne({ slug: req.params.slug });
-    res.status(200).json(post);
+    const post = await Post.findOne({ slug: req.params.slug }).populate({
+      path: "user",
+      select: "username description avatar",
+      transform: (user) => ({
+        createdBy: user.username,
+        desc: user.description,
+        avatar: user.avatar,
+      }),
+    });
+    const processedPost = {
+      id: post._id,
+      title: post.title,
+      content: post.content,
+      category: post.category,
+
+      img: post.img,
+      slug: post.slug,
+      createdAt: post.createdAt.toISOString().split("T")[0], // 格式化日期
+      updatedAt: post.updatedAt.toISOString().split("T")[0],
+      user: post.user, // 已通过 transform 处理
+      views: post.views || 0,
+      likes: post.likes || 0,
+    };
+    res.status(200).json(processedPost);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

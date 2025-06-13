@@ -34,7 +34,6 @@ export const registerUser = async (req, res) => {
     res.status(200).json({
       message: "用户注册成功",
       code: 200,
-
       user: {
         username: newUser.username,
         email: newUser.email,
@@ -71,8 +70,6 @@ export const loginUser = async (req, res) => {
       message: "登录成功",
       token,
       user: {
-
-
         username: user.username,
         email: user.email,
         avatar: user.avatar,
