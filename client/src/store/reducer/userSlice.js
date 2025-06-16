@@ -2,7 +2,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  userInfo: null,
+  userInfo: {},
 };
 
 const userSlice = createSlice({
@@ -14,6 +14,15 @@ const userSlice = createSlice({
     },
     clearUserInfo(state) {
       state.userInfo = null;
+    },
+    updateUserInfo: (state, action) => {
+      return {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          ...action.payload,
+        },
+      };
     },
   },
 });

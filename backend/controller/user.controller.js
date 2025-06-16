@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
-
+import validator from "validator";
 // 注册用户
 export const registerUser = async (req, res) => {
   try {
@@ -73,6 +73,9 @@ export const loginUser = async (req, res) => {
         username: user.username,
         email: user.email,
         avatar: user.avatar,
+        createdAt: user.createdAt,
+        description: user.description,
+        nickname: user.nickname,
       },
     });
   } catch (err) {
@@ -106,11 +109,18 @@ export const updateUser = async (req, res) => {
       return res.status(401).json({ message: "未授权" });
     }
 
-    const { username, email, password } = req.body;
+    const { username, email, password, nickname, description } = req.body;
     const updateData = {};
 
     if (username) updateData.username = username;
-    if (email) updateData.email = email;
+    if (description) updateData.description = description;
+    if (email) {
+      if (!validator.isEmail(email)) {
+        return res.status(400).json({ message: "邮箱格式不正确" });
+      }
+      updateData.email = email;
+    }
+    if (nickname) updateData.nickname = nickname;
 
     // 若有新密码，加密保存
     if (password) {
@@ -122,16 +132,23 @@ export const updateUser = async (req, res) => {
     if (req.file) {
       updateData.avatar = req.file.path;
     }
-
+    if (Object.keys(updateData).length === 0) {
+      return res.status(400).json({ message: "没有提供需要更新的信息" });
+    }
     const updatedUser = await User.findByIdAndUpdate(
       req.auth.userId,
       { $set: updateData },
       { new: true, runValidators: true }
     ).select("-password");
 
+    if (!updatedUser) {
+      return res.status(404).json({ message: "用户不存在" });
+    }
+
     res.status(200).json({
       message: "用户信息更新成功",
-      user: updatedUser,
+      data: updatedUser,
+      code: 200,
     });
   } catch (err) {
     res.status(500).json({ message: "更新失败", error: err.message });

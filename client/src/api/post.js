@@ -24,3 +24,13 @@ export function createPost(data) {
     headers: { "Content-Type": "multipart/form-data" },
   });
 }
+
+// 修改博客
+export function updatePost(id, data) {
+  return request({
+    url: `/posts/update/${id}`,
+    method: "post",
+    data,
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+}

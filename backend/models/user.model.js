@@ -29,6 +29,10 @@ const userSchema = new Schema(
       type: String,
       default: "",
     },
+    nickname: {
+      type: String,
+      default: "",
+    },
   },
   { timestamps: true }
 );
