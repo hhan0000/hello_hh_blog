@@ -124,7 +124,16 @@ const Setting = () => {
       <Button className=" border-none ">修改密码</Button>
       <Button className=" border-none ">修改昵称</Button>
       <Button className=" border-none ">修改邮箱</Button>
-      <Button className=" border-none ">修改头像</Button>
+      <div className=" border-none ">
+        <Upload
+          name="avatar"
+          showUploadList={false}
+          beforeUpload={beforeUpload}
+          accept="image/*"
+        >
+          <Button className=" border-none ">更换头像</Button>
+        </Upload>
+      </div>
     </div>
   );
   // ✅ 正确写法
@@ -261,13 +270,13 @@ const Setting = () => {
           </Row>
         </Card>
 
-        <Card style={{ marginTop: 24 }}>
+        <Card style={{ marginTop: 24 }} hoverable>
           <Title level={5} style={{ marginBottom: 24 }}>
             用户昵称
           </Title>
           <NickNameComponent></NickNameComponent>
         </Card>
-        <Card style={{ marginTop: 24 }}>
+        <Card style={{ marginTop: 24 }} hoverable>
           <Title level={5} style={{ marginBottom: 24 }}>
             个人简介
           </Title>
