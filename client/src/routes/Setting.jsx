@@ -7,10 +7,14 @@ import {
   Input,
   Typography,
   Card,
+  Popover,
   Upload,
   message,
   Spin,
+  Col,
+  Row,
 } from "antd";
+
 import { UserOutlined, UploadOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { updateUser } from "../api/user";
@@ -115,7 +119,22 @@ const Setting = () => {
       </Button>
     </div>
   );
-
+  const content = (
+    <div className="flex flex-col justify-start items-start w-[60px]">
+      <Button className=" border-none ">修改密码</Button>
+      <Button className=" border-none ">修改昵称</Button>
+      <Button className=" border-none ">修改邮箱</Button>
+      <Button className=" border-none ">修改头像</Button>
+    </div>
+  );
+  // ✅ 正确写法
+  const Option = () => (
+    <Popover content={content} title="Title">
+      <Button type="link" className=" border-none ">
+        操作
+      </Button>
+    </Popover>
+  );
   const DescConponent = () => (
     <div className="flex flex-row justify-between items-center w-full">
       <Form.Item
@@ -164,68 +183,84 @@ const Setting = () => {
     form.resetFields();
     navigate(-1);
   };
-  // Setting.jsx 新增代码
+
   if (!userInfo || Object.keys(userInfo).length === 0) {
     return <Spin tip="加载用户信息..." />;
   }
   return (
-    <div style={{ maxWidth: 800, margin: "0 auto", padding: 24 }}>
-      <Title level={5} style={{ marginBottom: 24 }}>
+    <div style={{ maxWidth: 1000, margin: "0 auto", padding: 24 }}>
+      <Title level={4} style={{ marginBottom: 24 }}>
         个人设置
       </Title>
-
-      {/* 账户信息（只读） */}
-      <Card title="账户信息" style={{ marginBottom: 24 }}>
-        <div style={{ marginBottom: 8 }}>
-          <Text strong>用户名:</Text>
-          <Text style={{ marginLeft: 8 }}>{userInfo?.username}</Text>
-        </div>
-        <div style={{ marginBottom: 8 }}>
-          <Text strong>邮箱:</Text>
-          <Text style={{ marginLeft: 8 }}>{userInfo?.email}</Text>
-        </div>
-        <div style={{ marginBottom: 8 }}>
-          <Text strong>注册日期:</Text>
-          <Text style={{ marginLeft: 16 }}>{userInfo?.createdAt}</Text>
-        </div>
-      </Card>
-
       <Form
         form={form}
         layout="vertical"
         initialValues={userInfo}
         onFinish={onFinish}
       >
-        <Card>
-          {/* 头像设置 */}
-          <Title level={5} style={{ marginBottom: 24 }}>
-            用户头像
-          </Title>
-          <Form.Item label="">
-            <div
-              className="flex justify-between"
-              style={{ display: "flex", alignItems: "flex-end" }}
-            >
-              <Avatar
-                src={avatar || `http://localhost:3000/${userInfo.avatar}`}
-                icon={<UserOutlined />}
-                size={75}
-                style={{ marginRight: 16 }}
-              />
-              <Upload
-                name="avatar"
-                showUploadList={false}
-                beforeUpload={beforeUpload}
-                accept="image/*"
-              >
-                <Button icon={<UploadOutlined />}>更换头像</Button>
-              </Upload>
-            </div>
-            <Text type="secondary" style={{ display: "block", marginTop: 8 }}>
-              支持JPG, PNG格式，大小不超过2MB
-            </Text>
-          </Form.Item>
+        <Card style={{ marginBottom: 24 }} title="基本信息" extra={<Option />}>
+          <Row gutter={24}>
+            <Col span={8}>
+              <Card style={{ marginBottom: 24, border: "none" }}>
+                <Title level={5} style={{ marginBottom: 12 }}>
+                  用户头像
+                </Title>
+                <Form.Item label="">
+                  <div style={{ display: "flex", alignItems: "flex-end" }}>
+                    <Avatar
+                      src={avatar || `http://localhost:3000/${userInfo.avatar}`}
+                      icon={<UserOutlined />}
+                      size={75}
+                      style={{ marginRight: 16 }}
+                    />
+                    <Upload
+                      name="avatar"
+                      showUploadList={false}
+                      beforeUpload={beforeUpload}
+                      accept="image/*"
+                    >
+                      <Button icon={<UploadOutlined />}>更换头像</Button>
+                    </Upload>
+                  </div>
+                  <Text
+                    type="secondary"
+                    style={{ display: "block", marginTop: 8 }}
+                  >
+                    支持JPG, PNG格式，大小不超过2MB
+                  </Text>
+                </Form.Item>
+              </Card>
+            </Col>
+            <Col span={16}>
+              <Card style={{ marginBottom: 24, border: "none" }} hoverable>
+                <div style={{ marginBottom: 24 }}>
+                  <Text strong>用户名:</Text>
+                  <Text style={{ marginLeft: 8 }}>{userInfo?.username}</Text>
+                </div>
+                <div style={{ marginBottom: 24 }}>
+                  <Text strong>邮箱:</Text>
+                  <Text style={{ marginLeft: 8 }}>{userInfo?.email}</Text>
+                </div>
+                <div style={{ marginBottom: 24 }}>
+                  <Text strong>昵称:</Text>
+                  <Text style={{ marginLeft: 8 }}>{userInfo?.nickname}</Text>
+                </div>
+
+                <div style={{ marginBottom: 24 }}>
+                  <Text strong>注册时长:</Text>
+                  <Text style={{ marginLeft: 16 }}>{userInfo?.createdAt}</Text>
+                </div>
+                <div style={{ marginBottom: 24 }}>
+                  <Text strong>个人简介:</Text>
+                  <Text style={{ marginLeft: 8 }}>
+                    {userInfo?.description || "未设置"}
+                  </Text>
+                </div>
+              </Card>
+            </Col>
+          </Row>
         </Card>
+
         <Card style={{ marginTop: 24 }}>
           <Title level={5} style={{ marginBottom: 24 }}>
             用户昵称
@@ -238,20 +273,7 @@ const Setting = () => {
           </Title>
 
           <DescConponent></DescConponent>
-          {/* <Form.Item
-            label=""
-            name="description"
-            rules={[{ max: 200, message: "个人简介最多200个字符!" }]}
-          >
-            <TextArea
-              rows={4}
-              placeholder="介绍一下自己..."
-              maxLength={200}
-              showCount
-            />
-          </Form.Item> */}
         </Card>
-
         <Form.Item style={{ marginTop: 24 }}>
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
             <Button
