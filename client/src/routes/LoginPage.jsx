@@ -16,7 +16,7 @@ const LoginPage = () => {
   const dispatch = useDispatch();
 
   const handleLogin = async (e) => {
-    e.preventDefault(); // 防止页面刷新
+    e.preventDefault();
 
     if (!username || !password) {
       setError("用户名和密码不能为空");
