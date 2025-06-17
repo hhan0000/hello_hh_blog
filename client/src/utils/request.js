@@ -14,6 +14,7 @@ service.interceptors.request.use(
       config.headers["Authorization"] = `Bearer ${token}`; // 假设后端需要 Bearer 前缀
     }
     config.headers["Cache-Control"] = "no-cache";
+    config.headers["Content-Type"] = "application/json";
     config.headers["Pragma"] = "no-cache";
     config.headers["Expires"] = "0";
     return config;
@@ -27,8 +28,9 @@ service.interceptors.request.use(
 // 响应拦截器
 service.interceptors.response.use(
   (res) => {
-    const code = res.data.code || 200;
-    const msg = errorCode[code] || res.data.msg || errorCode["default"];
+    const code = res.data.code || res.code || 200;
+    const msg =
+      errorCode[code] || res.data.msg || res.message || errorCode["default"];
 
     if (code === 401) {
       removeToken();

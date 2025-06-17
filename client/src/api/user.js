@@ -14,3 +14,6 @@ export const getUserInfo = () => {
 export const updateUser = (data) => {
   return request({ url: "/users/update", method: "post", data });
 };
+export const changePassword = (data) => {
+  return request({ url: "/users/changePassword", method: "post", data });
+};

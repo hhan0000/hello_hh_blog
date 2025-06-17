@@ -109,7 +109,7 @@ export const updateUser = async (req, res) => {
       return res.status(401).json({ message: "未授权" });
     }
 
-    const { username, email, password, nickname, description } = req.body;
+    const { username, email, nickname, description } = req.body;
     const updateData = {};
 
     if (username) updateData.username = username;
@@ -122,13 +122,6 @@ export const updateUser = async (req, res) => {
     }
     if (nickname) updateData.nickname = nickname;
 
-    // 若有新密码，加密保存
-    if (password) {
-      const hashedPassword = await bcrypt.hash(password, 10);
-      updateData.password = hashedPassword;
-    }
-
-    // 处理头像上传（假设你使用了 multer，上传后的文件保存在 req.file）
     if (req.file) {
       updateData.avatar = req.file.path;
     }
@@ -152,5 +145,32 @@ export const updateUser = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({ message: "更新失败", error: err.message });
+  }
+};
+
+export const changePassword = async (req, res) => {
+  const { oldPassword, newPassword } = req.body;
+
+  const userId = req.auth.userId; // 假设你用的是 JWT 或其他登录状态
+
+  try {
+    const user = await User.findById(userId);
+    if (!user)
+      return res.status(404).json({ code: 404, message: "用户不存在" });
+
+    const match = await bcrypt.compare(oldPassword, user.password); // 比对密码
+    if (!match)
+      return res.status(400).json({ code: 400, message: "旧密码不正确" });
+
+    // 如果匹配，更新新密码
+    console.log(newPassword);
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedNewPassword;
+    await user.save();
+
+    return res.json({ code: 200, message: "密码更新成功" });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ code: 500, message: "服务器错误" });
   }
 };
