@@ -7,6 +7,7 @@ import Search from "../components/Search";
 import Comments from "../components/Comments";
 import Paragraph from "../components/Paragraph";
 import { getPostBySlug } from "../api/post";
+import { postTime } from "../utils/util";
 const SignlePostPage = () => {
   const { slug } = useParams();
   console.log(slug);
@@ -41,7 +42,7 @@ const SignlePostPage = () => {
               {getCategoryName(post.category)}
             </Link>
             <span>发布时间</span>
-            <span>{post.createdAt}</span>
+            <span>{postTime(post.createdAt)}</span>
           </div>
           <p className="text-gray-500 font-medium">{post.desc}</p>
         </div>

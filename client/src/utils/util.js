@@ -82,3 +82,54 @@ export const generateBreadcrumbs = (pathname) => {
   const paths = pathname.split("=");
   return paths[1];
 };
+
+export const calcTime = (time) => {
+  const now = new Date();
+  const inputDate = new Date(time);
+
+  const diff = now.getTime() - time;
+  const day = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hour = Math.floor(diff / (1000 * 60 * 60));
+  const min = Math.floor(diff / (1000 * 60));
+
+  if (day < 1) {
+    // 返回前一天的日期
+    const yesterday = new Date(now);
+    yesterday.setDate(now.getDate() - 1);
+
+    const year = yesterday.getFullYear();
+    const month = String(yesterday.getMonth() + 1).padStart(2, "0"); // 月份从0开始
+    const dayOfMonth = String(yesterday.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${dayOfMonth}`;
+  } else if (day > 0) {
+    return `${day}天前`;
+  } else if (hour > 0) {
+    return `${hour}小时前`;
+  } else if (min > 0) {
+    return `${min}分钟前`;
+  } else {
+    return "刚刚";
+  }
+};
+export const postTime = (time) => {
+  const now = new Date();
+  const inputDate = new Date(time);
+
+  const diffInMs = now.getTime() - time;
+  const day = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+  const hour = Math.floor(diffInMs / (1000 * 60 * 60));
+  const min = Math.floor(diffInMs / (1000 * 60));
+
+  if (day < 1) {
+    return hour < 1 ? `${min}分钟前` : `${hour}小时前`;
+  } else if (day < 7) {
+    return `${day}天前`;
+  } else {
+    // 返回格式化日期：yyyy-mm-dd
+    const year = inputDate.getFullYear();
+    const month = String(inputDate.getMonth() + 1).padStart(2, "0"); // 月份从0开始
+    const date = String(inputDate.getDate()).padStart(2, "0");
+    return `${year}-${month}-${date}`;
+  }
+};

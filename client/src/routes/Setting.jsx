@@ -18,8 +18,9 @@ import {
 import { UserOutlined, UploadOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { updateUser } from "../api/user";
+import EditableField from "../components/EditableField";
 import { setUserInfo } from "../store/reducer/userSlice";
-
+import { calcTime } from "../utils/util";
 const { Title, Text } = Typography;
 const { TextArea } = Input;
 
@@ -80,51 +81,23 @@ const Setting = () => {
       });
   };
 
-  const NickNameComponent = () => (
-    <div className="flex flex-row justify-between items-center w-full">
-      <Form.Item
-        name="nickname"
-        style={{ flex: 1, marginBottom: 0, display: show ? "block" : "none" }}
-        rules={[
-          {
-            required: true,
-            message: "请输入昵称",
-          },
-          {
-            max: 30,
-            message: "昵称长度不能超过10个字符",
-          },
-        ]}
-      >
-        <Input placeholder="请输入昵称" />
-      </Form.Item>
-
-      {!show && (
-        <div style={{ flex: 1 }}>
-          <Text strong>昵称:</Text>
-          <Text style={{ marginLeft: 8 }}>
-            {form.getFieldValue("nickname") || userInfo?.nickname || "未设置"}
-          </Text>
-        </div>
-      )}
-
+  const content = (
+    <div className="flex flex-col justify-start items-start w-[100px]">
+      <Button className="border-none ">修改密码</Button>
+      <Button className="border-none" onClick={() => setShow((prev) => !prev)}>
+        修改昵称
+      </Button>
+      <Button className="border-none">修改邮箱</Button>
       <Button
-        style={{ marginLeft: 20 }}
+        className="border-none"
         onClick={() => {
-          if (show) form.setFieldsValue({ nickname: userInfo.nickname });
-          setShow(!show);
+          form.setFieldsValue({ description: userInfo.description });
+          setShowDesc(true);
         }}
       >
-        {show ? "取消" : "修改"}
+        修改简介
       </Button>
-    </div>
-  );
-  const content = (
-    <div className="flex flex-col justify-start items-start w-[60px]">
-      <Button className=" border-none ">修改密码</Button>
-      <Button className=" border-none ">修改昵称</Button>
-      <Button className=" border-none ">修改邮箱</Button>
-      <div className=" border-none ">
+      <div className="border-none ">
         <Upload
           name="avatar"
           showUploadList={false}
@@ -138,55 +111,11 @@ const Setting = () => {
   );
   // ✅ 正确写法
   const Option = () => (
-    <Popover content={content} title="Title">
+    <Popover content={content} title="">
       <Button type="link" className=" border-none ">
-        操作
+        更多操作
       </Button>
     </Popover>
-  );
-  const DescConponent = () => (
-    <div className="flex flex-row justify-between items-center w-full">
-      <Form.Item
-        name="description"
-        style={{
-          flex: 1,
-          marginBottom: 0,
-          display: showDesc ? "block" : "none",
-        }}
-        rules={[
-          {
-            required: true,
-            message: "请输入简介",
-          },
-          {
-            max: 100,
-            message: "简介长度不能超过100个字符",
-          },
-        ]}
-      >
-        <TextArea placeholder="请输入简介" />
-      </Form.Item>
-
-      {!showDesc && (
-        <div style={{ flex: 1 }}>
-          <Text strong>简介:</Text>
-          <Text>
-            {form.getFieldValue("description") || userInfo?.description}
-          </Text>
-        </div>
-      )}
-
-      <Button
-        style={{ marginLeft: 20 }}
-        onClick={() => {
-          if (showDesc)
-            form.setFieldsValue({ description: userInfo.description });
-          setShowDesc(!showDesc);
-        }}
-      >
-        {showDesc ? "取消" : "修改"}
-      </Button>
-    </div>
   );
   const handleCancle = () => {
     form.resetFields();
@@ -241,7 +170,7 @@ const Setting = () => {
               </Card>
             </Col>
             <Col span={16}>
-              <Card style={{ marginBottom: 24, border: "none" }} hoverable>
+              <Card style={{ marginBottom: 24, border: "none" }}>
                 <div style={{ marginBottom: 24 }}>
                   <Text strong>用户名:</Text>
                   <Text style={{ marginLeft: 8 }}>{userInfo?.username}</Text>
@@ -251,38 +180,42 @@ const Setting = () => {
                   <Text style={{ marginLeft: 8 }}>{userInfo?.email}</Text>
                 </div>
                 <div style={{ marginBottom: 24 }}>
-                  <Text strong>昵称:</Text>
-                  <Text style={{ marginLeft: 8 }}>{userInfo?.nickname}</Text>
+                  <EditableField
+                    name="nickname"
+                    label="昵称"
+                    isEditing={show}
+                    placeholder="请输入昵称"
+                    form={form}
+                    defaultValue={userInfo?.nickname}
+                  />
                 </div>
 
                 <div style={{ marginBottom: 24 }}>
                   <Text strong>注册时长:</Text>
-                  <Text style={{ marginLeft: 16 }}>{userInfo?.createdAt}</Text>
+                  <Text style={{ marginLeft: 16 }}>
+                    {calcTime(userInfo?.createdAt)}
+                  </Text>
                 </div>
                 <div style={{ marginBottom: 24 }}>
-                  <Text strong>个人简介:</Text>
-                  <Text style={{ marginLeft: 8 }}>
-                    {userInfo?.description || "未设置"}
-                  </Text>
+                  <EditableField
+                    name="description"
+                    label="简介"
+                    isEditing={showDesc}
+                    placeholder="请输入简介"
+                    form={form}
+                    type="textarea"
+                    defaultValue={userInfo?.description}
+                    rules={[
+                      { required: true, message: "请输入简介" },
+                      { max: 100, message: "简介长度不能超过100个字符" },
+                    ]}
+                  />
                 </div>
               </Card>
             </Col>
           </Row>
         </Card>
 
-        <Card style={{ marginTop: 24 }} hoverable>
-          <Title level={5} style={{ marginBottom: 24 }}>
-            用户昵称
-          </Title>
-          <NickNameComponent></NickNameComponent>
-        </Card>
-        <Card style={{ marginTop: 24 }} hoverable>
-          <Title level={5} style={{ marginBottom: 24 }}>
-            个人简介
-          </Title>
-
-          <DescConponent></DescConponent>
-        </Card>
         <Form.Item style={{ marginTop: 24 }}>
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
             <Button
