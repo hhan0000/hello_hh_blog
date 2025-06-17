@@ -320,7 +320,7 @@ const Setting = () => {
               htmlType="submit"
               style={{ marginRight: 16 }}
             >
-              保存更改
+              保存
             </Button>
 
             <Button onClick={handleCancle}>取消</Button>
