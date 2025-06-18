@@ -14,7 +14,7 @@ service.interceptors.request.use(
       config.headers["Authorization"] = `Bearer ${token}`; // 假设后端需要 Bearer 前缀
     }
     config.headers["Cache-Control"] = "no-cache";
-    config.headers["Content-Type"] = "application/json";
+    // config.headers["Content-Type"] = "application/json";
     config.headers["Pragma"] = "no-cache";
     config.headers["Expires"] = "0";
     return config;

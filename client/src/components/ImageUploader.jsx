@@ -13,11 +13,13 @@ const ImageUploader = ({
       const previewUrl = URL.createObjectURL(value);
       setImagePreview(previewUrl);
     }
+  }, [value]);
+  useEffect(() => {
     return () => {
+      // 组件卸载时才释放 Blob URL
       if (imagePreview) URL.revokeObjectURL(imagePreview);
     };
-  }, [value]);
-
+  }, []); // 空依赖：仅在卸载时执行
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;

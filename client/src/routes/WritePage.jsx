@@ -11,7 +11,7 @@ import ImageUploader from "../components/ImageUploader";
 const WritePage = () => {
   const navigate = useNavigate(); // 使用 useNavigate 代替 useHistory
   const [user, setUser] = useState(null);
-  const [imagePreview, setImagePreview] = useState(null); // 添加状态
+
   const [isSubmitting, setIsSubmitting] = useState(false); // 提交状态
   const [error, setError] = useState("");
   const [formData, setFormData] = useState({
@@ -29,13 +29,7 @@ const WritePage = () => {
       });
     }
   }, [token]);
-  useEffect(() => {
-    return () => {
-      if (imagePreview) {
-        URL.revokeObjectURL(imagePreview);
-      }
-    };
-  }, [imagePreview]);
+
   if (!isLoggedIn()) {
     return <div>请先登录才能写博客</div>;
   }
@@ -49,21 +43,6 @@ const WritePage = () => {
   // 富文本内容
   const handleContentChange = (content) => {
     setFormData((prev) => ({ ...prev, content }));
-  };
-
-  // 图片上传
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      // 清理旧的 preview URL
-      if (imagePreview) {
-        URL.revokeObjectURL(imagePreview);
-      }
-
-      const previewUrl = URL.createObjectURL(file);
-      setImagePreview(previewUrl);
-      setFormData((prev) => ({ ...prev, img: file }));
-    }
   };
 
   // 提交表单
@@ -83,6 +62,8 @@ const WritePage = () => {
       data.append("desc", formData.desc);
       data.append("content", formData.content);
       if (formData.img) {
+        console.log(formData.img);
+
         data.append("img", formData.img);
       }
       data.append("user", user._id);
@@ -95,7 +76,6 @@ const WritePage = () => {
           duration: 1.5,
         });
         setTimeout(() => {
-          // 使用 navigate 代替 history.push
           navigate(`/${response.slug}`);
         }, 1500);
       }
