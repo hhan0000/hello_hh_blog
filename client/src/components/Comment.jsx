@@ -1,7 +1,7 @@
 import React from "react";
-import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
-import Likes from "./Icons/Likes";
+
 import HHImage from "./HHImage";
+import MyIcon from "./components/MyIcon";
 
 const Comment = () => {
   return (
@@ -23,14 +23,16 @@ const Comment = () => {
       <div>
         <div className="flex items-center gap-2">
           {/* 点赞区域 */}
-          <span>{100}</span>
-          <Likes></Likes>
+          {/* <span>
+            <Views></Views>
+          </span> */}
+
           <div className="flex items-center gap-2">
-            <CheckOutlined />
-            <p className="text-sm"></p>
+            <MyIcon type="icon-dianzan" color="#1877F2" />
+            <p className="text-sm">{100}</p>
           </div>
           <div className="flex items-center gap-2">
-            <CloseOutlined />
+            <MyIcon type="icon-budianzan" color="#FF0000" />
           </div>
         </div>
       </div>

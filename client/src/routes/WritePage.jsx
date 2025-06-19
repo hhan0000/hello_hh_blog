@@ -17,7 +17,7 @@ const WritePage = () => {
   const [formData, setFormData] = useState({
     title: "",
     category: "general",
-    desc: "",
+    description: "",
     content: "",
     img: null,
   });
@@ -59,7 +59,7 @@ const WritePage = () => {
       const data = new FormData();
       data.append("title", formData.title);
       data.append("category", formData.category);
-      data.append("desc", formData.desc);
+      data.append("description", formData.description);
       data.append("content", formData.content);
       if (formData.img) {
         console.log(formData.img);
@@ -129,8 +129,8 @@ const WritePage = () => {
         </div>
 
         <textarea
-          name="desc"
-          value={formData.desc}
+          name="description"
+          value={formData.description}
           onChange={handleInputChange}
           placeholder="一个简短的介绍"
           className="p-4 rounded-xl bg-white shadow-md"
