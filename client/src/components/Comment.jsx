@@ -1,4 +1,6 @@
 import React from "react";
+import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
+import Likes from "./Icons/Likes";
 import HHImage from "./HHImage";
 
 const Comment = () => {
@@ -17,6 +19,20 @@ const Comment = () => {
         <p>
           这是我父亲的背影。那时我在北京读书，寒假回家，正是腊月二十九日。第二天就是除夕了。那天晚上，我和父亲在车站上等车。父亲要我买橘子，我说：“不要买了，明天就有了。”他不听，非要去买。
         </p>
+      </div>
+      <div>
+        <div className="flex items-center gap-2">
+          {/* 点赞区域 */}
+          <span>{100}</span>
+          <Likes></Likes>
+          <div className="flex items-center gap-2">
+            <CheckOutlined />
+            <p className="text-sm"></p>
+          </div>
+          <div className="flex items-center gap-2">
+            <CloseOutlined />
+          </div>
+        </div>
       </div>
     </div>
   );
