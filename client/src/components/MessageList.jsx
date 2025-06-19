@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Avatar, Divider, List, Skeleton } from "antd";
 import InfiniteScroll from "react-infinite-scroll-component";
-const MessageList = () => {
+const MessageList = ({ setMessage }) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
@@ -47,7 +47,7 @@ const MessageList = () => {
             <List.Item
               key={item.email}
               onClick={() => {
-                console.log(item);
+                setMessage(item);
               }}
             >
               <List.Item.Meta

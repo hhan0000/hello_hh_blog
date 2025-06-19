@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import MessageList from "../components/MessageList";
+import MessageContent from "../components/MessageContent";
 import { BellOutlined } from "@ant-design/icons";
 const arr = [
   {
@@ -36,6 +37,7 @@ const arr = [
 ];
 const Message = () => {
   const [selectId, setSelectId] = useState(1);
+  const [message, setMessage] = useState("");
   return (
     <div className="mt-2 pb-2 bg-white box-border h-[calc(100vh_-_1rem)] flex ">
       <div className="flex flex-col w-1/6 ">
@@ -69,10 +71,12 @@ const Message = () => {
               我的消息
             </div>
             <div className=" border-r-2 flex-1 min-h-0 border-gray-200 overflow-hidden">
-              <MessageList />
+              <MessageList setMessage={setMessage} />
             </div>
           </div>
-          <div className="w-3/4 h-full "></div>
+          <div className="w-3/4 h-full ">
+            <MessageContent message={message} />
+          </div>
         </div>
       </div>
     </div>
