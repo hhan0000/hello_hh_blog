@@ -1,4 +1,4 @@
-import { Schema, SchemaType } from "mongoose";
+import { Schema } from "mongoose";
 import mongoose from "mongoose";
 
 const postSchema = new Schema(
@@ -10,7 +10,6 @@ const postSchema = new Schema(
     },
     category: {
       type: String,
-
       default: "general",
     },
     img: {
@@ -32,7 +31,7 @@ const postSchema = new Schema(
       type: String,
       required: true,
     },
-    isFeatures: {
+    isFeatured: {
       type: Boolean,
       default: false,
     },
@@ -44,6 +43,13 @@ const postSchema = new Schema(
       type: Number,
       default: 0,
     },
+    // 👇 新增的评论字段
+    comments: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Comment",
+      },
+    ],
   },
   { timestamps: true }
 );

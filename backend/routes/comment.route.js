@@ -1,10 +1,7 @@
 import express from "express";
-
+import { authMiddleware } from "../middlewares/authMiddleware.js";
+import { getComments, addComment } from "../controller/comment.controller.js";
 const router = express.Router();
-
-router.get("/anothertest", (req, res) => {
-  res.status(200).json({
-    message: "This is another test route",
-  });
-});
+router.use("/add", authMiddleware, addComment); // 确保只有登录用户可以创建评论
+router.use("/list", authMiddleware, getComments);
 export default router;

@@ -1,6 +1,5 @@
 import { nanoid } from "nanoid";
 import Post from "../models/post.model.js";
-
 import User from "../models/user.model.js";
 // 获取所有文章
 export const getPosts = async (req, res) => {

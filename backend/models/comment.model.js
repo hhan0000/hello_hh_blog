@@ -1,3 +1,5 @@
+import { Schema, SchemaType } from "mongoose";
+import mongoose from "mongoose";
 const commentSchema = new Schema(
   {
     user: {
@@ -50,3 +52,5 @@ const commentSchema = new Schema(
   },
   { timestamps: true }
 );
+
+export default mongoose.model("Comment", commentSchema);

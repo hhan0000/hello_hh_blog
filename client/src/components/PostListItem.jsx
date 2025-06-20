@@ -3,7 +3,6 @@ import HHImage from "./HHImage";
 import { Link } from "react-router-dom";
 import { getCategoryName } from "../utils/util";
 const PostListItem = ({ post }) => {
-  console.log(post);
   const fullImgUrl = post.img
     ? `http://localhost:3000/${post.img}`
     : "/postImg.jpeg";

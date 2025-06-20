@@ -10,14 +10,14 @@ import { getPostBySlug } from "../api/post";
 import { postTime } from "../utils/util";
 const SignlePostPage = () => {
   const { slug } = useParams();
-  console.log(slug);
+
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   useEffect(() => {
     getPostBySlug(slug)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if (!res) throw new Error("API 返回异常");
         setPost(res);
       })
@@ -108,7 +108,7 @@ const SignlePostPage = () => {
           <Search />
         </div>
       </div>
-      <Comments />
+      <Comments post={post} />
     </div>
   );
 };

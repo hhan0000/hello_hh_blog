@@ -74,6 +74,7 @@ export const loginUser = async (req, res) => {
         email: user.email,
         avatar: user.avatar,
         createdAt: user.createdAt,
+        userId: user._id,
         description: user.description,
         nickname: user.nickname,
       },

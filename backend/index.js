@@ -2,11 +2,12 @@ import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
 import userRouter from "./routes/user.route.js";
+// const socketIO = require("socket.io");
 import postRouter from "./routes/post.route.js";
 import commentRouter from "./routes/comment.route.js";
 import { connectDB } from "./lib/connectDB.js";
 import cors from "cors";
-
+// import http from "http";
 const app = express();
 app.use(cors(process.env.CLIENT_HOST));
 

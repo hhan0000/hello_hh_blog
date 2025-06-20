@@ -11,7 +11,6 @@ const PostList = ({ category }) => {
   useEffect(() => {
     getPostList({ category })
       .then((res) => {
-        console.log(res);
         if (!res) throw new Error("API 返回异常");
         setPosts(res);
       })

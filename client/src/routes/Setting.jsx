@@ -205,7 +205,6 @@ const Setting = () => {
           setShowPassword(false);
           passwordForm.resetFields(["oldPassword", "newPassword"]);
         } else {
-          console.log(res);
           message.error(res.message || "密码更新失败");
         }
       })
