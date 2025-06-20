@@ -4,7 +4,7 @@ import { createFromIconfontCN } from "@ant-design/icons";
 import { Space } from "antd";
 
 const IconFont = createFromIconfontCN({
-  scriptUrl: "//at.alicdn.com/t/c/font_4954326_pbf9f520khc.js",
+  scriptUrl: "//at.alicdn.com/t/c/font_4954326_ep5shkgm20i.js",
 });
 
 const MyIcon = ({ type, color = "#1877F2", size = "16px" }) => {

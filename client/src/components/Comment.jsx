@@ -1,9 +1,27 @@
 import React from "react";
 
 import HHImage from "./HHImage";
-import MyIcon from "./components/MyIcon";
+import MyIcon from "./Icons/MyIcon.jsx";
 
 const Comment = () => {
+  const [likeCount, setLikeCount] = React.useState(10);
+  const [isDisliked, setIsDisliked] = React.useState(false);
+  const [isLiked, setIsLiked] = React.useState(false);
+  const Like = () => {
+    // Handle like functionality here
+    console.log("Liked!");
+    setIsLiked((prev) => !prev);
+    if (isLiked) {
+      setLikeCount(likeCount - 1);
+      return;
+    }
+    setLikeCount(likeCount + 1);
+  };
+  const Dislike = () => {
+    // Handle dislike functionality here
+    console.log("Disliked!");
+    setIsDisliked((prev) => !prev);
+  };
   return (
     <div className="bg-slate-50 rounded-xl mb-8 p-4">
       <div className=" flex items-center gap-4 ">
@@ -21,18 +39,19 @@ const Comment = () => {
         </p>
       </div>
       <div>
-        <div className="flex items-center gap-2">
-          {/* 点赞区域 */}
-          {/* <span>
-            <Views></Views>
-          </span> */}
-
-          <div className="flex items-center gap-2">
-            <MyIcon type="icon-dianzan" color="#1877F2" />
-            <p className="text-sm">{100}</p>
+        <div className="flex items-center gap-2 justify-end mt-4">
+          <div className="flex items-center gap-2 mx-4" onClick={Like}>
+            <MyIcon
+              type={isLiked ? "icon-Like-active" : "icon-Like-normal"}
+              color="#1877F2"
+            />
+            <span className="text-sm">{likeCount}</span>
           </div>
-          <div className="flex items-center gap-2">
-            <MyIcon type="icon-budianzan" color="#FF0000" />
+          <div className="flex items-center gap-2" onClick={Dislike}>
+            <MyIcon
+              type={isDisliked ? "icon-Dislike-active" : "icon-Dislike-normal"}
+              color="#FF0000"
+            />
           </div>
         </div>
       </div>
