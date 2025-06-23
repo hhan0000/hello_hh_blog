@@ -47,7 +47,7 @@ const Comments = ({ post }) => {
     }
   };
   return (
-    <div className="flex flex-col gap-8 lg:w-3/5 mt-8">
+    <div className="flex flex-col gap-8 lg:w-3/5 my8">
       <h1 className="text-gray-500 underline text-xl">评论区</h1>
       <div className="flex items-center justify-between gap-8 w-full">
         <textarea

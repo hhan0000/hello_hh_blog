@@ -5,7 +5,7 @@ import User from "../models/user.model.js";
 export const getPosts = async (req, res) => {
   try {
     const { category } = req.query;
-    console.log(category);
+    // console.log(category);
     const query = category ? { category } : {};
     const posts = await Post.find(query).populate({
       path: "user",

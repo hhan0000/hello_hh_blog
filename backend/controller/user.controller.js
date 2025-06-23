@@ -164,7 +164,6 @@ export const changePassword = async (req, res) => {
       return res.status(400).json({ code: 400, message: "旧密码不正确" });
 
     // 如果匹配，更新新密码
-    console.log(newPassword);
     const hashedNewPassword = await bcrypt.hash(newPassword, 10);
     user.password = hashedNewPassword;
     await user.save();
